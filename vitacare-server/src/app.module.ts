@@ -9,7 +9,9 @@ import { Consulta } from './consultas/consulta.entity';
 import { DeviceToken } from './device-tokens/device-token.entity';
 import { UsuariosModule } from './usuarios/usuarios.module'; // Importa o UsuariosModule
 import { AuthModule } from './auth/auth.module';         // Importa o AuthModule
-
+import { MedicamentosModule } from './medicamentos/medicamentos.module';
+import { ConsultasModule } from './consultas/consultas.module';
+import { HorariosMedicamentosModule } from './horarios-medicamentos/horarios-medicamentos.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -24,6 +26,9 @@ import { AuthModule } from './auth/auth.module';         // Importa o AuthModule
     }),
     UsuariosModule, // Apenas importe os módulos aqui
     AuthModule,
+    MedicamentosModule,
+    ConsultasModule,
+    HorariosMedicamentosModule,
   ],
   controllers: [AppController], // Apenas o AppController, se ele for realmente global para o app
   providers: [AppService],    // Apenas o AppService, se ele for realmente global para o app

@@ -15,20 +15,20 @@ export class AuthService {
   async registrar(registrarUsuarioDto: RegistrarUsuarioDto): Promise<{ message: string }> {
     const { nome, email, senha } = registrarUsuarioDto;
 
-    const usuarioExistente = await this.usuariosService.findOneByEmail(email);
+    const usuarioExistente = await this.usuariosService.findByEmail(email);
     if (usuarioExistente) {
       throw new ConflictException("Este e-mail já está em uso.");
     }
 
     const senhaHash = await bcrypt.hash(senha, 10); // O segundo argumento é o saltRounds
 
-    await this.usuariosService.create({ nome, email, senhaHash });
+    await this.usuariosService.create({ nome, email, senha });
     return { message: "Usuário registrado com sucesso. Por favor, faça o login." };
   }
 
   async login(loginUsuarioDto: LoginUsuarioDto): Promise<{ accessToken: string }> {
     const { email, senha } = loginUsuarioDto;
-    const usuario = await this.usuariosService.findOneByEmail(email);
+    const usuario = await this.usuariosService.findByEmail(email);
 
     if (!usuario) {
       throw new UnauthorizedException("Credenciais inválidas.");
@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   async validateUserForLocalStrategy(email: string, pass: string): Promise<any> {
-    const usuario = await this.usuariosService.findOneByEmail(email);
+    const usuario = await this.usuariosService.findByEmail(email);
     if (usuario) {
       const senhaValida = await bcrypt.compare(pass, usuario.senhaHash);
       if (senhaValida) {

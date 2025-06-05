@@ -21,13 +21,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   async validate(payload: any): Promise<any> {
     // payload contém { sub: usuario.id, email: usuario.email } que definimos no login
-    const usuario = await this.usuariosService.findOneById(payload.sub);
+    const usuario = await this.usuariosService.findOne(payload.sub);
     if (!usuario) {
       throw new UnauthorizedException("Token inválido ou usuário não encontrado.");
     }
     // O que é retornado aqui será anexado a request.user nos controllers protegidos por JwtAuthGuard
     // Removido temporariamente para simplificar, ajuste conforme sua entidade Usuario
     // return { id: payload.sub, email: payload.email, nome: usuario.nome }; 
-    return { id: payload.sub, email: payload.email }; // Retorne os dados que você precisa
+    const { senhaHash, ...result} = usuario; // Exclui o hash da senha do retorno
+    return result; // Retorne os dados que você precisa
   }
 }
