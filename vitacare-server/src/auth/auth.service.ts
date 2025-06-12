@@ -29,7 +29,6 @@ export class AuthService {
   async login(loginUsuarioDto: LoginUsuarioDto): Promise<{ accessToken: string }> {
     const { email, senha } = loginUsuarioDto;
     const usuario = await this.usuariosService.findByEmail(email);
-
     if (!usuario) {
       throw new UnauthorizedException("Credenciais inválidas.");
     }
@@ -57,4 +56,6 @@ export class AuthService {
     }
     return null; // Retorna null se o usuário não for encontrado ou a senha não bater
   }
+
+
 }

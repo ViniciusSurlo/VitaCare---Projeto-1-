@@ -7,17 +7,26 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import { authService } from '../services/authService';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/AppNavigator';
 
-const LoginScreen = () => {
+// Definição do tipo para as props de navegação
+type LoginScreenProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
+} 
+
+
+const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !senha) {
-      Alert.alert('Erro', 'Por favor, preencha o email e a senha.');
+      Alert.alert('Preencha os dados!', 'Por favor, preencha o email e a senha.');
       return;
     }
 
@@ -26,7 +35,16 @@ const LoginScreen = () => {
       const response = await authService.login({ email, senha });
       console.log('Login Response:', response);
       Alert.alert('Sucesso!', 'Login realizado com sucesso!');
-      // Navegação futura aqui
+
+      try {
+        // tentar buscar os dados do usuário
+        await authService.fetchUsuarioAtual()
+      } catch (erroUsuario) {
+        console.warn('Aviso: Não foi possível buscar os dados do usuário atual', erroUsuario);
+        // Continua mesmo assim (sem os dados do usuário)
+      }
+      // Login bem-sucedido, navega para a tela Home
+      navigation.replace('Home')
     } catch (error: any) {
       const errorMessage = error?.message || 'Ocorreu um erro desconhecido.';
       Alert.alert('Erro no Login', errorMessage);
@@ -61,7 +79,9 @@ const LoginScreen = () => {
       ) : (
         <View style={styles.buttonContainer}>
           <Button title="Entrar" onPress={handleLogin} color="#2563eb" />
+          <Button title="Voltar" onPress={() => navigation.replace('Inicio')} color="#2563eb" />
         </View>
+
       )}
     </View>
   );
@@ -94,8 +114,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
-    borderRadius: 8,
-    overflow: 'hidden',
+    borderRadius: 10,
+    overflow: 'visible', // rounded-lg
+    gap: 10, // space-y-2
   },
 });
 
