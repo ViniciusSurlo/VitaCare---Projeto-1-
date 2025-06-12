@@ -117,11 +117,11 @@ interface AuthResponse {
 /**
  * Envia os dados de registro para a API.
  */
-const register = async (data: RegisterData): Promise<any> => { // Ajuste o tipo de retorno conforme sua API
+const registrar = async (data: RegisterData): Promise<any> => { // Ajuste o tipo de retorno conforme sua API
   try {
     // Faz a requisição POST para o endpoint /auth/register
     // Assumindo que seu backend retorna os dados do usuário criado ou uma mensagem de sucesso
-    const response = await apiClient.post('/auth/register', data);
+    const response = await apiClient.post('/auth/registrar', data);
     console.log('Registro bem-sucedido:', response.data);
     // Você pode querer fazer login automaticamente após o registro
     // ou apenas retornar os dados/mensagem para a tela.
@@ -169,7 +169,7 @@ const logout = async (): Promise<void> => {
 // Exporta as funções para serem usadas em outros lugares do app
 export const authService = {
   login,
-  register,
+  registrar,
   logout,
   getDadosUsuario,
   fetchUsuarioAtual

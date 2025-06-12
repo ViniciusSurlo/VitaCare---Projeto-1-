@@ -6,11 +6,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import InicioScreen from "../screens/InicioScreen";
+import CriarScreen from "../screens/CriarScreen";
 
 // Definindo o tipo de navegação
 export type RootStackParamList = {
     Inicio: undefined;
     Login: undefined;
+    Criar: undefined;
     Home: undefined;
 };
 
@@ -29,6 +31,11 @@ const AppNavigator = () => {
                 <Stack.Screen 
                     name="Login"
                     component={LoginScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen 
+                    name="Criar"
+                    component={CriarScreen}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen 

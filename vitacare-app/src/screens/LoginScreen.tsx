@@ -8,6 +8,8 @@ import {
   Alert,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
+  ScrollView
 } from 'react-native';
 import { authService } from '../services/authService';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -54,7 +56,10 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   };
 
   return (
+    <ScrollView style={styles.container2} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', minHeight: 950 }}
+    keyboardShouldPersistTaps="handled">
     <View style={styles.container}>
+      <Image source={require('../assets/logo.png')} style={styles.img} />
       <Text style={styles.title}>VitaCare Login</Text>
 
       <TextInput
@@ -84,6 +89,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
 
       )}
     </View>
+   </ScrollView>
   );
 };
 
@@ -93,6 +99,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: '#f3f4f6', // bg-gray-100
+  },
+  container2: {
+    flex: 1,
     backgroundColor: '#f3f4f6', // bg-gray-100
   },
   title: {
@@ -118,6 +128,11 @@ const styles = StyleSheet.create({
     overflow: 'visible', // rounded-lg
     gap: 10, // space-y-2
   },
+  img: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  }
 });
 
 export default LoginScreen;

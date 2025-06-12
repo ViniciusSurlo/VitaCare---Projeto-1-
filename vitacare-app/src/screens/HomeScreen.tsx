@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Image } from "react-native";
 import { authService } from "../services/authService";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/AppNavigator";
@@ -42,6 +42,7 @@ const HomeScreen = ({ navigation }: HomeProps) => {
 
     return (
         <View style={styles.container}>
+            <Image source={require('../assets/logo.png')} style={styles.img} />
             <Text style={styles.title}>VitaCare</Text>
             <Text style={styles.title}>Bem-vindo(a){nomeUsuario}!</Text>
             <Text style={styles.subtitle}>Você está logado!</Text>
@@ -80,6 +81,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
   },
+   img: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  }
 });
 
 export default HomeScreen
