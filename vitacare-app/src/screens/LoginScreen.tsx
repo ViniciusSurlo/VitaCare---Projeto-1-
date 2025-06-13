@@ -14,6 +14,7 @@ import {
 import { authService } from '../services/authService';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Definição do tipo para as props de navegação
 type LoginScreenProps = {
@@ -59,8 +60,12 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     <ScrollView style={styles.container2} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', minHeight: 950 }}
     keyboardShouldPersistTaps="handled">
     <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.img} />
-      <Text style={styles.title}>VitaCare Login</Text>
+      <TouchableOpacity style={styles.voltar} onPress={() => navigation.replace('Inicio')}>
+        <MaterialIcons name="arrow-back" size={20} color="#2563eb" style={{ marginRight: 4 }} />
+        <Text style={{ color: '#2563eb', fontSize: 16, marginBottom: 20 }}>Voltar</Text>
+      </TouchableOpacity>
+      <Image source={require('../assets/logo2.png')} style={styles.img} />
+      <Text style={styles.subtitulo}> O jeito <Text style={{color: '#2563eb', fontWeight: 400}}>inteligente </Text> de cuidar de você </Text>
 
       <TextInput
         style={styles.input}
@@ -79,16 +84,19 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         secureTextEntry
       />
 
+
       {isLoading ? (
         <ActivityIndicator size="large" color="#2563eb" />
       ) : (
         <View style={styles.buttonContainer}>
           <Button title="Entrar" onPress={handleLogin} color="#2563eb" />
-          <Button title="Voltar" onPress={() => navigation.replace('Inicio')} color="#2563eb" />
+          <Button title="Voltar" onPress={() => navigation.replace('Inicio')} color="#BED0FF" />
         </View>
 
       )}
+      
     </View>
+    <Image source={require('../assets/logo2.png')} style={styles.logofinal} />
    </ScrollView>
   );
 };
@@ -98,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 30,
     backgroundColor: '#f3f4f6', // bg-gray-100
   },
   container2: {
@@ -129,9 +137,29 @@ const styles = StyleSheet.create({
     gap: 10, // space-y-2
   },
   img: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: '100%',
+    height: 100,
+    marginTop: -150
+  },
+  subtitulo: {
+    fontSize: 20,
+    fontWeight: 300,
+    fontFamily: '',
+    marginBottom: 20
+  },
+  logofinal: {
+    position: 'absolute',
+    right: 20,
+    bottom: 300,
+    width: 100,
+    height: 50
+  },
+  voltar: {
+    position: 'absolute',
+    top: 90,
+    left: 20,
+    zIndex: 1,
+    flexDirection: 'row',
   }
 });
 

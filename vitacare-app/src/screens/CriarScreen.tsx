@@ -14,6 +14,7 @@ import {
 import { authService } from '../services/authService';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import { MaterialIcons } from '@expo/vector-icons';
 
 type CriarScreenProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'Criar'>
@@ -61,8 +62,18 @@ const CriarScreen = ({ navigation }: CriarScreenProps) => {
     
     return (
       <View style={styles.container}>
-        <Image source={require('../assets/logo.png')} style={styles.img}/>
-      <Text style={styles.title}>VitaCare Cadastro</Text>
+        <TouchableOpacity style={styles.voltar} onPress={() => navigation.replace('Inicio')}>
+          <MaterialIcons name="arrow-back" size={20} color="#2563eb" style={{ marginRight: 4 }} />
+          <Text style={{ color: '#2563eb', fontSize: 16, marginBottom: 20 }}>Voltar</Text>
+        </TouchableOpacity>
+        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}> 
+          <Image source={require('../assets/logo.png')} style={styles.img}/>
+          <Text style={styles.title}> Cadastro</Text>
+        </View>
+        
+
+      
+      <Text style={styles.subtitle}> Cadastre-se e cuide da <Text style={{color: '#2563eb', fontWeight: 'bold'}}>sua saúde </Text> com a gente! </Text>
 
       <TextInput
         style={styles.input}
@@ -94,7 +105,7 @@ const CriarScreen = ({ navigation }: CriarScreenProps) => {
       ) : (
         <View style={styles.buttonContainer}>
           <Button title="Criar" onPress={handleCriar} color="#2563eb" />
-          <Button title="Voltar" onPress={() => navigation.replace('Inicio')} color="#2563eb" />
+          <Button title="Voltar" onPress={() => navigation.replace('Inicio')} color="#BED0FF" />
         </View>
 
       )}
@@ -111,10 +122,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f4f6', // bg-gray-100
   },
   title: {
-    fontSize: 28, // text-3xl
+    fontSize: 40, // text-3xl
     fontWeight: 'bold',
     marginBottom: 32, // mb-8
-    color: '#2563eb', // text-blue-600
+    color: '#000', // text-blue-600
   },
   input: {
     width: '100%',
@@ -129,14 +140,27 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
-    borderRadius: 10,
+    borderRadius: 50,
     overflow: 'visible', // rounded-lg
     gap: 10, // space-y-2
   },
   img: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
+    width: 40,
+    height: 40,
+    marginBottom: 30,
+  },
+  subtitle: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: -30,
+    marginBottom: 50
+  },
+  voltar: {
+    position: 'absolute',
+    top: 90,
+    left: 20,
+    zIndex: 1,
+    flexDirection: 'row',
   }
 });
 

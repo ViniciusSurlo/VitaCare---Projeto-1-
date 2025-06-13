@@ -7,9 +7,11 @@ import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import InicioScreen from "../screens/InicioScreen";
 import CriarScreen from "../screens/CriarScreen";
+import PrincipalScreen from "../screens/PrincipalScreen";
 
 // Definindo o tipo de navegação
 export type RootStackParamList = {
+    Principal: undefined;
     Inicio: undefined;
     Login: undefined;
     Criar: undefined;
@@ -22,7 +24,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const AppNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Inicio">
+            <Stack.Navigator initialRouteName="Principal">
+                 <Stack.Screen 
+                    name="Principal"
+                    component={PrincipalScreen}
+                    options={{ headerShown: false }}
+                />
                 <Stack.Screen 
                     name="Inicio"
                     component={InicioScreen}
